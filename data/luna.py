@@ -3,6 +3,7 @@ import cv2 as cv
 import glob
 import numpy as np
 import torch
+import torch.utils.data as data
 
 LUNA_CLASSES = {
     'nodule' : 0
@@ -24,7 +25,7 @@ class GroundTruth:
                 'ymax': int(obj.find('bndbox').find('ymax').text),
             })
             
-class LUNADataset(Dataset):
+class LUNADataset(data.Dataset):
     def __init__(self, data_root, transform):
         self.data_root = data_root
         self.transforms = transform
@@ -32,7 +33,7 @@ class LUNADataset(Dataset):
         self.class_to_idx = class_to_idx
 
     def __getitem__(self, index):
-        img = cv.imread(self.imgs[index]))
+        img = cv.imread(self.imgs[index])
         gt = GroundTruth(self.imgs[index].replace('jpeg','xml'))
         target = np.array([[obj['xmin'], obj['ymin'], obj['xmax'], obj['ymax'], LUNA_CLASSES[obj['name']]] for obj in gt.objects])
 

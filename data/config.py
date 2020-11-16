@@ -53,5 +53,5 @@ luna = {
     'aspect_ratios': [[2], [2, 3], [2, 3], [2, 3], [2], [2]],
     'variance': [0.1, 0.2],
     'clip': True,
-    'name': 'VOC',
+    'name': 'LUNA',
 }
